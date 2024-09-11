@@ -1,9 +1,6 @@
 const mongo=require('mongoose')
 
-mongo.connect('mongodb://localhost:27017/Dav',{
- useNewUrlParser:true,
- useUniFiedTopology:true
-}).then(()=>{
+mongo.connect('mongodb://localhost:27017/Dav').then(()=>{
       console.log('Db Connected')
 }).catch(()=>
 {

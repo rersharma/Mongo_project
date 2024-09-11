@@ -1,18 +1,16 @@
 const mongo_connect=require('../Database_connectivity')
 class Employee_
 {
+    emp_model=null
+       constructor()
+       {
+        this.emp_model=mongo_connect.model('emp_store',new mongo_connect.Schema({},{strict:false}),'Employee')
+       }
 
      Add_Record(req,res)
      {
-        if(req.method==='GET')
-        {
-            res.render('home')
-            res.end()
-        }
-        else 
-        {
-                 const emp_model=mongo_connect.model('emp_store',new mongo_connect.Schema({},{strict:false}),'Employee')
-                 const emp_data=new emp_model(
+        
+            const emp_data=new this.emp_model(
                     {
                         name:req.body.nm,
                         mobile:req.body.mb,
@@ -28,22 +26,67 @@ class Employee_
                         res.end()
                     })
                    
+        
+     }
+    //  Delete_Emp(req,res)
+    //  {
+    //     if(req.method==='GET')
+    //     {
+    //          res.render('Delete')
+    //          res.end()
+    //     }
+    //     else 
+    //     {
+    //                 this.emp_model.findOne({name:req.body.nm}).then((record)=>
+    //                 {
+    //                     if(record)
+    //                     {
+    //                         return this.emp_model.findOneAndDelete({name:req.body.nm})
+    //                     }
+    //                     else 
+    //                     {
+    //                          throw new Error(req.body.nm+' Not Exits in Our Database')
+    //                     }
+    //                 }).then(()=>
+    //                     {
+    //                         res.render('Delete',{message:req.body.nm+' Record Deleted Successfully'})
+    //                         res.end()
+    //                     }).catch((err)=>
+    //                             {
+    //                                 res.render('Delete',{message:err.message})
+    //                                 res.end()
+    //                             })  
+        
+    //     }
+    //  }
+
+     async Delete_Emp(req,res)
+     {
+        if(req.method==='GET')
+        {
+             res.render('Delete')
+             res.end()
+        }
+        else 
+        {
+                    const record=await this.emp_model.findOne({name:req.body.nm});
+                    
+                        if(record)
+                        {
+                          await this.emp_model.findOneAndDelete({name:req.body.nm})
+                           res.render('Delete',{message:req.body.nm+' Record Deleted Successfully'})
+                           res.end()
+                        }
+                        else 
+                        {
+                            res.render('Delete',{message:req.body.nm+' Not Exists In Our Database'})
+                            res.end()
+                        }
+        }
+        
         }
      }
-}
 
 const obj=new Employee_()
 module.exports=obj
 
-
-/*
-
-
-Explanation:
-
-	•	No Pre-defined Schema: The Employee model is created using an empty schema {} with { strict: false }, allowing you to store documents in MongoDB without enforcing any schema. This is useful when you want to work directly with an existing MongoDB collection without defining a Mongoose schema.
-	•	Collection Reference: The third parameter in mongoose.model('Employee', new mongoose.Schema({}, { strict: false }), 'employees') specifies the collection name 'Employee'. Mongoose will directly interact with this collection.
-	•	Storing Data: When the form is submitted, the data is directly saved into the Employee collection in your MongoDB database.
-
-
-    */
