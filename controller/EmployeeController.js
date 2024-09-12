@@ -106,6 +106,45 @@ class Employee_
               res.end()
             
         }
+
+        // Search_Emp(req,res)
+        // {
+        //       if(req.method==='GET')
+        //       {
+        //           res.render('Search')
+        //           res.end()
+        //       }
+        //       else 
+        //       {
+        //              const emp_name=req.body.name 
+        //              this.emp_model.find({name:emp_name}).then(data=>
+        //             {
+        //                     res.render('Search',{record:data})
+        //                     res.end()
+        //             }).catch(err=>
+        //             {
+        //                 res.send(err.message)
+        //                 res.end()
+        //             })
+        //       }
+        // }
+
+       async Search_Emp(req,res)
+        {
+              if(req.method==='GET')
+              {
+                  res.render('Search')
+                  res.end()
+              }
+              else 
+              {
+                     
+                     const data=await this.emp_model.find({name:req.body.name})
+                     res.render('Search',{record:data})
+                     res.end()
+                    
+              }
+        }
      }
 
 const obj=new Employee_()

@@ -23,4 +23,9 @@ router.use('/Display_record',(req,res)=>
        Emp_Obj.Display_Emp(req,res)
 })
 
+router.use('/search_record',(req,res)=>
+{
+    Emp_Obj.Search_Emp(req,res)
+})
+
 module.exports=router
