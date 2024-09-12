@@ -18,4 +18,9 @@ router.use('/Delete_record',(req,res)=>
       Emp_Obj.Delete_Emp(req,res)
 })
 
+router.use('/Display_record',(req,res)=>
+{
+       Emp_Obj.Display_Emp(req,res)
+})
+
 module.exports=router

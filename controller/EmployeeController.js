@@ -85,6 +85,27 @@ class Employee_
         }
         
         }
+
+        // Display_Emp(req,res)
+        // {
+        //       this.emp_model.find({}).then((data)=>
+        //     {
+        //           res.render('Display',{record:data})
+        //           res.end()
+        //     }).catch((err)=>
+        //     {
+        //            res.send(err.message)
+        //            res.end()
+        //     })
+        // }
+
+        async Display_Emp(req,res)
+        {
+              const data=await this.emp_model.find({})
+              res.render('Display',{record:data})
+              res.end()
+            
+        }
      }
 
 const obj=new Employee_()
