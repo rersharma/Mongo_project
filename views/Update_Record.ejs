@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+      <%-include('common/nav') %>
+      <h1 align="Center">Employee Update Record Example</h1>
+      <center>
+      <form action="/update_record" method="post">
+        Enter Name <input type="text" name="name"  required placeholder="Enter Name for Update The Record">   <button>Fetch Record</button>
+      </form> 
+        
+      <% if(locals.name)
+      {%>
+        <hr>
+        <h1 align="center">Now you Have to Be Modify</h1>
+      <form action="/update_records" method="post">
+        Enter Name <input type="text" readonly name="name" value="<%if(locals.name){%><%=name%><%}%>" required placeholder="Enter Name for Update The Record"> <br><br>
+        Mobile <input type="number" name="mb" value="<%if(locals.mobile){%><%=mobile%><%}%>"  placeholder="Enter Mobile"><br><br>
+        Address <textarea cols="20" name="address"><% if(locals.address){%> <%=address%> <%}%></textarea><br><br>
+        <button>Update Now</button> 
+    </form> 
+
+     <%}%>
+
+       <% if(locals.message)
+       { %>
+        <hr>
+             <%=message%>
+       <%}%>
+    </center>
+</body>
+</html>

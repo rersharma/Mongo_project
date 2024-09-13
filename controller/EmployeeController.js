@@ -145,6 +145,52 @@ class Employee_
                     
               }
         }
+
+       async Update_Emp(req,res)
+        {
+            if(req.method==='GET')
+            {
+                  res.render('Update_Record')
+                  res.end()
+            }
+            else 
+            {
+               const {name,mb,address}=req.body
+               
+              /*  const nam=req.body.name
+                const mob=req.body.mb
+                const adrs=req.body.address  */
+                const record=await this.emp_model.findOne({name:name});
+                if(record)
+                {
+                    
+                     res.render('Update_Record',{message:"Record Found",name:record.name,mobile:record.mobile,address:record.address})
+                     res.end()
+
+                   
+                }
+                else 
+                {
+                    res.render('Update_Record',{message:'Name not Exits To Update the Mobile & Address Record'})
+                    res.end()
+                }
+            }
+        }
+
+          async Update_Emp_final(req,res)
+          {
+                        const {name,mb,address}=req.body
+                        
+                        const update_data={
+                            mobile:mb,
+                            address:address
+                    }
+                    
+                    const myquery={name:name}
+                    await this.emp_model.findOneAndUpdate(myquery,{$set:update_data},{new:true,useFindAndModify:false})
+                    res.render('Update_Record',{message:'Record Updated Successfully'})
+                    res.end()
+          }
      }
 
 const obj=new Employee_()

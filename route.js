@@ -28,4 +28,14 @@ router.use('/search_record',(req,res)=>
     Emp_Obj.Search_Emp(req,res)
 })
 
+router.use('/update_record',(req,res)=>
+{
+     Emp_Obj.Update_Emp(req,res)
+})
+
+router.use('/update_records',(req,res)=>
+{
+     Emp_Obj.Update_Emp_final(req,res)
+})
+
 module.exports=router
